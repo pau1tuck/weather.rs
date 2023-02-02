@@ -5,7 +5,7 @@ const API_KEY: &str = "ASRQL55QSXYKL63Y2DCEMFUC3";
 #[tokio::main]
 
 async fn main() -> Result<(), reqwest::Error> {
-    let key = env::var("KEY");
+    let key: &str = env::var("KEY");
     let url = format!("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Mae%20Chan?unitGroup=metric&include=current&key={}&contentType=json", API_KEY);
 
     let weather_data = reqwest::Client::new().get(url).send().await?.text().await?;
