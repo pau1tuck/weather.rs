@@ -1,8 +1,8 @@
 #[tokio::main]
 
 async fn main() -> Result<(), reqwest::Error> {
-    let api_id = "ASRQL55QSXYKL63Y2DCEMFUC3";
-    let url = format!("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Mae%20Chan?unitGroup=metric&include=current&key={}&contentType=json", api_id);
+    let api_key = "ASRQL55QSXYKL63Y2DCEMFUC3";
+    let url = format!("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Mae%20Chan?unitGroup=metric&include=current&key={}&contentType=json", api_key);
 
     let weather_data = reqwest::Client::new().get(url).send().await?.text().await?;
     println!("{:#?}", weather_data);
