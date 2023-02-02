@@ -1,6 +1,12 @@
+// weather -c = current temperature in celsius
+// weather -f = current temperature in fahrenheit
+// weather = weather now
+
 // use std::env;
 
 use reqwest::get;
+use serde::{Deserialize, Serialize};
+use serde_json;
 
 const API_KEY: &str = "ASRQL55QSXYKL63Y2DCEMFUC3";
 
@@ -10,12 +16,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let url = format!("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Mae%20Chan?unitGroup=metric&include=current&key={}&contentType=json", API_KEY);
 
     let weather_data = get(url).await?.json::<serde_json::Value>().await?;
-    println!("{:#?}", weather_data);
 
     Ok(())
 }
-
-use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
