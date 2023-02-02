@@ -1,11 +1,10 @@
 #[tokio::main]
+
 async fn main() -> Result<(), reqwest::Error> {
-    let weather_data = reqwest::Client::new()
-        .get("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Mae%20Chan?unitGroup=metric&include=current&key=ASRQL55QSXYKL63Y2DCEMFUC3&contentType=json")
-        .send()
-        .await?
-        .text()
-        .await?;
+    let api_id = "ASRQL55QSXYKL63Y2DCEMFUC3";
+    let url = format!("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Mae%20Chan?unitGroup=metric&include=current&key={}&contentType=json", api_id);
+
+    let weather_data = reqwest::Client::new().get(url).send().await?.text().await?;
     println!("{:#?}", weather_data);
 
     Ok(())
@@ -16,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Weather {
-    query_cost: Option<i64>,
+    query_cost: Option<u32>,
     latitude: Option<f64>,
     longitude: Option<f64>,
     resolved_address: Option<String>,
