@@ -1,14 +1,14 @@
-use std::env;
+// use std::env;
 
 const API_KEY: &str = "ASRQL55QSXYKL63Y2DCEMFUC3";
 
 #[tokio::main]
 
-async fn main() -> Result<(), reqwest::Error> {
-    let key: &str = env::var("KEY");
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // let key: &str = env::var("KEY");
     let url = format!("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Mae%20Chan?unitGroup=metric&include=current&key={}&contentType=json", API_KEY);
 
-    let weather_data = reqwest::Client::new().get(url).send().await?.text().await?;
+    let weather_data = reqwest::get(url).await?.json::<serde_json::Value>().await?;
     println!("{:#?}", weather_data);
 
     Ok(())
