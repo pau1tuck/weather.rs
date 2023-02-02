@@ -17,6 +17,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let weather_data = get(url).await?.json::<serde_json::Value>().await?;
 
+    println!("{:#?}", weather_data.address);
+
     Ok(())
 }
 
